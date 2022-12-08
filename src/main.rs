@@ -35,18 +35,36 @@ fn main() {
         BufWriter::new(fs::File::create("out.mcap").unwrap())
     ).unwrap();
 
+    let schema = r#"{
+        "title": "Pose",
+        "type": "object",
+        "properties": {
+            "x": {
+                "type": "number"
+            },
+            "y": {
+                "type": "number"
+            },
+            "z": {
+                "type": "number"
+            }
+        }
+    }"#;
+
     let pose_channel = Channel {
         topic: String::from("pose"),
         schema: Some(Schema {
             name: String::from("Pose"),
-            encoding: String::from(""),
-            data: std::borrow::Cow::Borrowed(&[]),
+            encoding: String::from("jsonschema"),
+            data: std::borrow::Cow::Borrowed(schema.as_bytes()),
         }.into()),
         message_encoding: String::from("cbor"),
         metadata: BTreeMap::default()
     };
     let channel_id = out.add_channel(&pose_channel).unwrap();
 
+    let p = Pose { x: 1.0, y: 2.0, z: 3.0 };
+    println!("{:?}", serde_cbor::to_vec(&p).unwrap());
     for i in 0..25 {
         let pose = Pose { x, y, z: 3.0 };
         let serialized_pose = serde_cbor::to_vec(&pose).unwrap();
