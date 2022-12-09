@@ -6,8 +6,17 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+anyhow = "1.0.66"
+camino = "1.1.1"
 crossbeam-channel = "0.5.6"
+memmap = "0.7.0"
 mcap = "0.6.0"
 serde = "1.0.130"
 serde_cbor = "0.11.2"
 serde_derive = "1.0.130"
+
+
+[[bin]]
+name = "reader"
+path = "src/reader.rs"
+doc = false

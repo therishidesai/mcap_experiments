@@ -63,8 +63,6 @@ fn main() {
     };
     let channel_id = out.add_channel(&pose_channel).unwrap();
 
-    let p = Pose { x: 1.0, y: 2.0, z: 3.0 };
-    println!("{:?}", serde_cbor::to_vec(&p).unwrap());
     for i in 0..25 {
         let pose = Pose { x, y, z: 3.0 };
         let serialized_pose = serde_cbor::to_vec(&pose).unwrap();
