@@ -25,7 +25,7 @@ fn main() -> Result<()> {
     for message in mcap::MessageStream::new(&mapped)? {
         let m = message?;
         let deserialized_pose: Pose = serde_cbor::from_slice(&m.data).unwrap();
-        println!("{:?}", deserialized_pose);
+        println!("{:?} at {:?}", deserialized_pose, &m.publish_time);
         // Or whatever else you'd like to do...
     }
     Ok(())

@@ -76,8 +76,8 @@ fn main() {
                 channel_id,
                 sequence: i,
                 log_time: std::time::SystemTime::now()
-                    .duration_since(std::time::UNIX_EPOCH).unwrap().as_millis() as u64,
-                publish_time: pub_time_epoch.as_millis() as u64,
+                    .duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos() as u64,
+                publish_time: pub_time_epoch.as_nanos() as u64,
             },
             &serialized_pose
         ).unwrap();
@@ -85,7 +85,7 @@ fn main() {
 
         x += 1.0;
         y += 1.0;
-        std::thread::sleep(std::time::Duration::from_millis(250));
+        std::thread::sleep(std::time::Duration::from_millis(1000));
     }
 
     drop(sender);
